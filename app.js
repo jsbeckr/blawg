@@ -90,6 +90,26 @@ app.get('/admin', ensureAuthenticated, function(req, res) {
   res.render('admin');
 });
 
+app.post('/post', ensureAuthenticated, function(req, res) {
+  var title = req.body.post.title;
+  var body = req.body.post.text;
+
+  var post = new Post();
+
+  post.author = req.user.username;
+  post.title = title;
+  post.body = body;
+
+  post.save(function(err) {
+    if (!err) {
+      console.log('Post successfully saved!');
+    } else {
+      console.log('ERROR!');
+    }
+    res.redirect('/');
+  });
+});
+
 app.get('/login', function(req, res) {
   res.render('login');
 });
@@ -98,6 +118,17 @@ app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
+});
+
+app.get('/logout', function(req, res){
+  req.logOut();
+  res.redirect('/');
+});
+
+app.get('/post/:postId', function(req, res) {
+  Post.findOne({ _id: req.params.postId }, function(err, post) {
+    res.render('post', { post: post });
+  });
 });
 
 app.listen(3000, function(){

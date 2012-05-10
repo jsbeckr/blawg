@@ -1,0 +1,20 @@
+.post
+	h2= post.title
+	p posted by #{post.author} on #{post.date}
+	p!= post.body
+
+	#disqus_thread
+
+	- var disqus_identifier = post._id;
+
+	script
+		var disqus_shortname = 'allwissendemllhalde';
+		//var disqus_identifier = ;
+		var disqus_developer = 1;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	
+	p
+		| <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>

@@ -1,8 +1,16 @@
 !!!
 html
-  head
-    title That's my blawg
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body!= body
-    script(src='/javascripts/jquery.js')
-    script(src='/javascripts/my_blog.js')
+	head
+		title That's my blawg
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/monokai.css')
+		script(src='/javascripts/jquery.js')
+	body
+		.wrapper
+			h1 
+				a(href="/") BLAWG
+			!= body
+		script(src='/javascripts/my_blog.js')
+		script(src='/javascripts/highlight/highlight.pack.js')
+		script
+			hljs.initHighlightingOnLoad();

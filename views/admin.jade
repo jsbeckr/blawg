@@ -1,1 +1,15 @@
-h1 ADMIN
+h2 ADMIN
+form(method="POST", action="/post")
+	p
+		input(name="post[title]")
+	p
+		textarea(name="post[text]")
+	p
+		button(name="postButton", type="submit") Post
+
+script(src='/javascripts/tiny_mce/tiny_mce.js')
+script
+	tinyMCE.init({
+		mode : "textareas",
+		theme: "advanced"
+	});
