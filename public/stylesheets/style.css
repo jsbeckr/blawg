@@ -13,6 +13,15 @@ a {
 	margin: 0 auto;
 }
 
-.admin {
+.admin_menu {
 	text-align: center;
+}
+
+.login {
+	text-align: center;
+}
+
+.admin input {
+	width: 800px;
+	font: 20pt "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
 }

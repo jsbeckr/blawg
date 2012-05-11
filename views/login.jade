@@ -1,10 +1,9 @@
-h2 LOGIN
-form(method='POST', action="/login")
-	p
-		label Username:
-			input(name='username')
-	p
-		label Password:
-			input(name='password')
-	p
-		button(name='loginButton', type="submit") Login
+.login
+	h2 LOGIN
+	form(method='POST', action="/login")
+		p
+			input(name='username', placeholder="Username")
+		p
+			input(name='password', type="password", placeholder="Password")
+		p
+			button(name='loginButton', type="submit") Login

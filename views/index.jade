@@ -4,7 +4,10 @@ each post in posts
 			a(href="/post/" + post._id) #{post.title}
 		p posted by #{post.author} on #{post.date}
 		p!= post.body
-.admin
+		if user
+			p
+				a(href="/edit/" + post._id) edit
+.admin_menu
 	if user
 		p 
 			a(href="/admin") admin

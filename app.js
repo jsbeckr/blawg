@@ -131,6 +131,14 @@ app.get('/post/:postId', function(req, res) {
   });
 });
 
+app.get('/edit/:postId', ensureAuthenticated, function(req, res) {
+  Post.findOne({ _id: req.params.postId }, function(err, post) {
+    console.log(post.body);
+    // TODO: node-validator!!
+    res.render('edit', { post: post, debug: true});
+  });
+});
+
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
