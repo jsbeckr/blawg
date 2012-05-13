@@ -44,7 +44,8 @@ var PostSchema = new mongoose.Schema({
   author  : String,
   title   : String,
   body    : String,
-  date    : { type: Date, default: Date.now }
+  date    : { type: Date, default: Date.now },
+  edited  : { type: Date }
 });
 
 var Post = mongoose.model('posts', PostSchema);
@@ -90,26 +91,6 @@ app.get('/admin', ensureAuthenticated, function(req, res) {
   res.render('admin');
 });
 
-app.post('/post', ensureAuthenticated, function(req, res) {
-  var title = req.body.post.title;
-  var body = req.body.post.text;
-
-  var post = new Post();
-
-  post.author = req.user.username;
-  post.title = title;
-  post.body = body;
-
-  post.save(function(err) {
-    if (!err) {
-      console.log('Post successfully saved!');
-    } else {
-      console.log('ERROR!');
-    }
-    res.redirect('/');
-  });
-});
-
 app.get('/login', function(req, res) {
   res.render('login');
 });
@@ -131,11 +112,40 @@ app.get('/post/:postId', function(req, res) {
   });
 });
 
+app.post('/post', ensureAuthenticated, function(req, res) {
+  var title = req.body.post.title;
+  var body = req.body.post.text;
+
+  var post = new Post();
+
+  post.author = req.user.username;
+  post.title = title;
+  post.body = body;
+
+  post.save(function(err) {
+    if (!err) {
+      console.log('Post successfully saved!');
+    } else {
+      console.log('ERROR!');
+    }
+    res.redirect('/');
+  });
+});
+
 app.get('/edit/:postId', ensureAuthenticated, function(req, res) {
   Post.findOne({ _id: req.params.postId }, function(err, post) {
-    console.log(post.body);
-    // TODO: node-validator!!
-    res.render('edit', { post: post, debug: true});
+    res.render('edit', { post: post });
+  });
+});
+
+app.post('/edit', ensureAuthenticated, function(req, res) {
+  Post.findOne({ _id: req.body.post.id }, function(err, post) {
+    post.edited = Date.now();
+    post.body = req.body.post.text;
+    
+    post.save(function(err) {
+      res.redirect('/post/' + post._id);
+    });
   });
 });
 

@@ -1,6 +1,8 @@
 .post
 	h2= post.title
-	p posted by #{post.author} on #{post.date}
+	p posted by #{post.author} on #{post.date} 
+		if post.edited
+			| edited on #{post.edited}
 	p!= post.body
 
 	#disqus_thread

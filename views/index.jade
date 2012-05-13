@@ -2,7 +2,8 @@ each post in posts
 	.post
 		h2
 			a(href="/post/" + post._id) #{post.title}
-		p posted by #{post.author} on #{post.date}
+		.date
+			p posted by #{post.author} on #{post.date}
 		p!= post.body
 		if user
 			p

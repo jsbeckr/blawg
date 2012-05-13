@@ -1,13 +1,13 @@
 .admin
 	h2 ADMIN - EDIT
 	form(method="POST", action="/edit")
+		input(name="post[id]", type="hidden", value=post._id)
 		p
-			input(name="post[title]", value=post.title)
+			input(id="title", name="post[title]", value=post.title)
 		p
-			textarea(name="post[text]")
+			textarea(id="editArea", name="post[text]") #{post.body}
 		p
 			button(name="postButton", type="submit") Post
-		p= post.body
 
 script(src='/javascripts/tiny_mce/tiny_mce.js')
 script
@@ -17,8 +17,6 @@ script
 		width: "800"
 	});
 
-!=	"<script>"
-!=	"setTimeout(function() {"
-!=		"tinyMCE.activeEditor.setContent($('" + post.body + "').text());"
-!=	"}, 200);"
-!=	"</script>"
+	setTimeout(function() {
+		tinyMCE.activeEditor.setContent($('#editArea').val());
+	}, 200);
